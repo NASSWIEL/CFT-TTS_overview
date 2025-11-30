@@ -3,6 +3,7 @@ This repository provides a set of audio samples from the **Blizzard 2023 segment
 
 - **Reference recordings**
 - **ZipVoice outputs**
+- **ZipVoice 24kHz outputs**
 - **Fine-tuned ZipVoice outputs**
 
 
@@ -11,12 +12,14 @@ This repository provides a set of audio samples from the **Blizzard 2023 segment
 Structure:
 ```
 collected_samples/
-├── AD_train/
+├── AD/
 │   ├── reference/
 │   ├── zipVoice/
-│   └── zipVoice_finetuned/
-└── NEB_train/
+│   ├── zipVoicekhz24/
+│   └── zipVoic_fintuned/
+└── NEB/
     ├── reference/
     ├── zipVoice/
-    └── zipVoice_finetuned/
+    ├── zipVoicekhz24/
+    └── zipVoic_fintuned/
 ```
