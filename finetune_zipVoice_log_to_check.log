@@ -1,0 +1,480 @@
+Python version: Python 3.11.13
+Python path: /info/etu/m2/s2405959/miniconda3/envs/zipvoice_py311/bin/python
+
+Stage 0: Split dataset into train/dev/test
+----------------------------------------
+================================================================================
+SPLITTING BLIZZARD DATASET FOR ZIPVOICE FINE-TUNING
+================================================================================
+
+ Processing AD_train dataset...
+  Total lines: 2380
+  Valid lines: 2380
+   train:   2023 samples → egs/zipvoice/data/raw/ad_train.tsv
+   dev:    238 samples → egs/zipvoice/data/raw/ad_dev.tsv
+   test:    119 samples → egs/zipvoice/data/raw/ad_test.tsv
+
+ Processing NEB_train dataset...
+  Total lines: 63478
+  Valid lines: 63478
+   train:  53956 samples → egs/zipvoice/data/raw/neb_train.tsv
+   dev:   6347 samples → egs/zipvoice/data/raw/neb_dev.tsv
+   test:   3175 samples → egs/zipvoice/data/raw/neb_test.tsv
+
+ Creating combined Blizzard dataset...
+   train:  55979 samples → egs/zipvoice/data/raw/blizzard_train.tsv
+   dev:   6585 samples → egs/zipvoice/data/raw/blizzard_dev.tsv
+   test:   3294 samples → egs/zipvoice/data/raw/blizzard_test.tsv
+
+================================================================================
+SUMMARY
+================================================================================
+
+ AD Dataset:
+  Train:   2023 | Dev:   238 | Test:   119
+
+ NEB Dataset:
+  Train:  53956 | Dev:  6347 | Test:  3175
+
+ Combined Blizzard Dataset:
+  Train:  55979 | Dev:  6585 | Test:  3294
+
+ Dataset splitting completed!
+ Output directory: egs/zipvoice/data/raw
+
+ Next step: Run fine_tune_run.sh to start fine-tuning
+ Found: data/raw/blizzard_train.tsv
+ Found: data/raw/blizzard_dev.tsv
+ Found: data/raw/blizzard_test.tsv
+ Stage 0 completed
+
+Stage 1: Prepare manifests from TSV files
+----------------------------------------
+Processing train...
+2025-12-03 12:31:11,536 INFO [prepare_dataset.py:185] Preparing blizzard-finetune dataset raw_train subset.
+2025-12-03 12:31:11,538 INFO [prepare_dataset.py:190] blizzard-finetune_cuts_raw_train.jsonl.gz exists, skipping.
+ Manifest created for train
+Processing dev...
+2025-12-03 12:31:17,711 INFO [prepare_dataset.py:185] Preparing blizzard-finetune dataset raw_dev subset.
+2025-12-03 12:31:17,712 INFO [prepare_dataset.py:190] blizzard-finetune_cuts_raw_dev.jsonl.gz exists, skipping.
+ Manifest created for dev
+Processing test...
+2025-12-03 12:31:22,573 INFO [prepare_dataset.py:185] Preparing blizzard-finetune dataset raw_test subset.
+2025-12-03 12:31:22,574 INFO [prepare_dataset.py:190] blizzard-finetune_cuts_raw_test.jsonl.gz exists, skipping.
+ Manifest created for test
+ Stage 1 completed
+
+Stage 2: Add tokens to manifests
+----------------------------------------
+Processing train...
+2025-12-03 12:31:34,000 INFO [prepare_tokens.py:63] Processing data/manifests/blizzard-finetune_cuts_raw_train.jsonl.gz
+2025-12-03 12:31:34,001 INFO [prepare_tokens.py:65] data/manifests/blizzard-finetune_cuts_train.jsonl.gz exists, skipping.
+2025-12-03 12:31:34,001 INFO [prepare_tokens.py:103] Done!
+ Tokens added for train
+Processing dev...
+2025-12-03 12:31:45,023 INFO [prepare_tokens.py:63] Processing data/manifests/blizzard-finetune_cuts_raw_dev.jsonl.gz
+2025-12-03 12:31:45,024 INFO [prepare_tokens.py:65] data/manifests/blizzard-finetune_cuts_dev.jsonl.gz exists, skipping.
+2025-12-03 12:31:45,024 INFO [prepare_tokens.py:103] Done!
+ Tokens added for dev
+Processing test...
+2025-12-03 12:31:55,862 INFO [prepare_tokens.py:63] Processing data/manifests/blizzard-finetune_cuts_raw_test.jsonl.gz
+2025-12-03 12:31:55,862 INFO [prepare_tokens.py:65] data/manifests/blizzard-finetune_cuts_test.jsonl.gz exists, skipping.
+2025-12-03 12:31:55,863 INFO [prepare_tokens.py:103] Done!
+ Tokens added for test
+ Stage 2 completed
+
+Stage 3: Compute Fbank features
+----------------------------------------
+Processing train...
+/info/etu/m2/s2405959/miniconda3/envs/zipvoice_py311/lib/python3.11/site-packages/lhotse/audio/utils.py:101: UserWarning: The audio duration mismatch tolerance has been set to a value lower than default (0.5s). We don't recommend this as it might break some data augmentation transforms.
+  warnings.warn(
+2025-12-03 12:32:02,326 INFO [compute_fbank.py:267] {'sampling_rate': 24000, 'type': 'vocos', 'dataset': 'blizzard-finetune', 'subset': 'train', 'source_dir': 'data/manifests', 'dest_dir': 'data/fbank', 'split_cuts': False, 'split_begin': None, 'split_end': None, 'batch_duration': 1000, 'num_jobs': 20}
+2025-12-03 12:32:02,326 INFO [compute_fbank.py:210] Computing features for blizzard-finetune dataset train subset
+2025-12-03 12:32:02,328 INFO [compute_fbank.py:226] Loading manifests data/manifests/blizzard-finetune_cuts_train.jsonl.gz
+2025-12-03 12:32:02,658 INFO [compute_fbank.py:248] blizzard-finetune train already exists - skipping.
+2025-12-03 12:32:02,659 INFO [compute_fbank.py:272] Done!
+ Fbank computed for train
+Processing dev...
+/info/etu/m2/s2405959/miniconda3/envs/zipvoice_py311/lib/python3.11/site-packages/lhotse/audio/utils.py:101: UserWarning: The audio duration mismatch tolerance has been set to a value lower than default (0.5s). We don't recommend this as it might break some data augmentation transforms.
+  warnings.warn(
+2025-12-03 12:32:08,355 INFO [compute_fbank.py:267] {'sampling_rate': 24000, 'type': 'vocos', 'dataset': 'blizzard-finetune', 'subset': 'dev', 'source_dir': 'data/manifests', 'dest_dir': 'data/fbank', 'split_cuts': False, 'split_begin': None, 'split_end': None, 'batch_duration': 1000, 'num_jobs': 20}
+2025-12-03 12:32:08,356 INFO [compute_fbank.py:210] Computing features for blizzard-finetune dataset dev subset
+2025-12-03 12:32:08,357 INFO [compute_fbank.py:226] Loading manifests data/manifests/blizzard-finetune_cuts_dev.jsonl.gz
+2025-12-03 12:32:08,394 INFO [compute_fbank.py:248] blizzard-finetune dev already exists - skipping.
+2025-12-03 12:32:08,394 INFO [compute_fbank.py:272] Done!
+ Fbank computed for dev
+Processing test...
+/info/etu/m2/s2405959/miniconda3/envs/zipvoice_py311/lib/python3.11/site-packages/lhotse/audio/utils.py:101: UserWarning: The audio duration mismatch tolerance has been set to a value lower than default (0.5s). We don't recommend this as it might break some data augmentation transforms.
+  warnings.warn(
+2025-12-03 12:32:13,731 INFO [compute_fbank.py:267] {'sampling_rate': 24000, 'type': 'vocos', 'dataset': 'blizzard-finetune', 'subset': 'test', 'source_dir': 'data/manifests', 'dest_dir': 'data/fbank', 'split_cuts': False, 'split_begin': None, 'split_end': None, 'batch_duration': 1000, 'num_jobs': 20}
+2025-12-03 12:32:13,731 INFO [compute_fbank.py:210] Computing features for blizzard-finetune dataset test subset
+2025-12-03 12:32:13,732 INFO [compute_fbank.py:226] Loading manifests data/manifests/blizzard-finetune_cuts_test.jsonl.gz
+2025-12-03 12:32:13,761 INFO [compute_fbank.py:248] blizzard-finetune test already exists - skipping.
+2025-12-03 12:32:13,761 INFO [compute_fbank.py:272] Done!
+ Fbank computed for test
+ Stage 3 completed
+
+Stage 4: Download pre-trained model
+----------------------------------------
+ model.pt already exists
+ tokens.txt already exists
+ model.json already exists
+ Stage 4 completed
+
+Stage 5: Fine-tune ZipVoice model
+----------------------------------------
+This will take several hours...
+[W1203 12:32:36.693931988 CUDAAllocatorConfig.h:28] Warning: expandable_segments not supported on this platform (function operator())
+[W1203 12:32:36.701653687 CUDAAllocatorConfig.h:28] Warning: expandable_segments not supported on this platform (function operator())
+2025-12-03 12:32:36,415 INFO [train_zipvoice.py:1016] (0/2) Device: cuda:0
+2025-12-03 12:32:36,416 INFO [train_zipvoice.py:1031] (0/2) {
+  "average_period": 200,
+  "base_lr": 1e-05,
+  "batch_idx_train": 0,
+  "best_train_epoch": -1,
+  "best_train_loss": Infinity,
+  "best_valid_epoch": -1,
+  "best_valid_loss": Infinity,
+  "bucketing_sampler": true,
+  "check_input_finite": true,
+  "checkpoint": "/info/raid-etu/m2/s2405959/VO2/ZipVoice/egs/zipvoice/download/zipvoice/model.pt",
+  "condition_drop_ratio": 0.2,
+  "dataset": "custom",
+  "dev_manifest": "data/fbank/blizzard-finetune_cuts_dev.jsonl.gz",
+  "device": "cuda:0",
+  "drop_last": true,
+  "dump_batch_on_error": true,
+  "env_info": {
+    "IP address": "192.168.100.12",
+    "hostname": "gpue02",
+    "python-version": "3.11",
+    "torch-cuda-available": true,
+    "torch-cuda-version": "12.1",
+    "torch-version": "2.5.1+cu121",
+    "zipvoice-git-branch": "master",
+    "zipvoice-git-date": "Wed Sep 17 03:58:11 2025",
+    "zipvoice-git-sha1": "5140290-dirty",
+    "zipvoice-path": "/info/raid-etu/m2/s2405959/VO2/ZipVoice/zipvoice"
+  },
+  "error_dump_count": 0,
+  "exp_dir": "exp/zipvoice_finetune_blizzard",
+  "feat_dim": 100,
+  "feat_scale": 0.1,
+  "finetune": true,
+  "fm_decoder_cnn_module_kernel": [
+    31,
+    15,
+    7,
+    15,
+    31
+  ],
+  "fm_decoder_dim": 512,
+  "fm_decoder_downsampling_factor": [
+    1,
+    2,
+    4,
+    2,
+    1
+  ],
+  "fm_decoder_feedforward_dim": 1536,
+  "fm_decoder_num_heads": 4,
+  "fm_decoder_num_layers": [
+    2,
+    2,
+    4,
+    4,
+    4
+  ],
+  "inf_check": false,
+  "input_strategy": "PrecomputedFeatures",
+  "keep_last_k": 30,
+  "lang": "fr",
+  "log_grad_norm": true,
+  "log_interval": 50,
+  "lr_batches": 7500,
+  "lr_epochs": 10,
+  "lr_hours": 0,
+  "manifest_dir": "data/fbank",
+  "master_port": 12356,
+  "max_duration": 50,
+  "max_error_dumps": 10,
+  "max_len": 20.0,
+  "min_len": 1.0,
+  "model_config": "/info/raid-etu/m2/s2405959/VO2/ZipVoice/egs/zipvoice/download/zipvoice/model.json",
+  "num_buckets": 12,
+  "num_epochs": 1000000,
+  "num_iters": 50000,
+  "num_workers": 8,
+  "on_the_fly_feats": false,
+  "pad_id": 0,
+  "pos_dim": 48,
+  "pos_head_dim": 4,
+  "print_diagnostics": false,
+  "query_head_dim": 32,
+  "ref_duration": 50,
+  "reset_interval": 200,
+  "return_cuts": false,
+  "sampling_rate": 24000,
+  "save_every_n": 10000,
+  "scan_oom": false,
+  "seed": 42,
+  "shuffle": true,
+  "start_epoch": 1,
+  "tensorboard": true,
+  "text_embed_dim": 192,
+  "text_encoder_cnn_module_kernel": 9,
+  "text_encoder_dim": 192,
+  "text_encoder_feedforward_dim": 512,
+  "text_encoder_num_heads": 4,
+  "text_encoder_num_layers": 4,
+  "time_embed_dim": 192,
+  "token_file": "download//zipvoice/tokens.txt",
+  "tokenizer": "espeak",
+  "train_manifest": "data/fbank/blizzard-finetune_cuts_train.jsonl.gz",
+  "type": "vocos",
+  "use_fp16": true,
+  "valid_by_epoch": false,
+  "valid_interval": 10000,
+  "value_head_dim": 12,
+  "vocab_size": 360,
+  "world_size": 2
+}
+2025-12-03 12:32:36,417 INFO [train_zipvoice.py:1033] (0/2) About to create model
+2025-12-03 12:32:36,926 INFO [train_zipvoice.py:1016] (1/2) Device: cuda:1
+2025-12-03 12:32:36,927 INFO [train_zipvoice.py:1031] (1/2) {
+  "average_period": 200,
+  "base_lr": 1e-05,
+  "batch_idx_train": 0,
+  "best_train_epoch": -1,
+  "best_train_loss": Infinity,
+  "best_valid_epoch": -1,
+  "best_valid_loss": Infinity,
+  "bucketing_sampler": true,
+  "check_input_finite": true,
+  "checkpoint": "/info/raid-etu/m2/s2405959/VO2/ZipVoice/egs/zipvoice/download/zipvoice/model.pt",
+  "condition_drop_ratio": 0.2,
+  "dataset": "custom",
+  "dev_manifest": "data/fbank/blizzard-finetune_cuts_dev.jsonl.gz",
+  "device": "cuda:1",
+  "drop_last": true,
+  "dump_batch_on_error": true,
+  "env_info": {
+    "IP address": "192.168.100.12",
+    "hostname": "gpue02",
+    "python-version": "3.11",
+    "torch-cuda-available": true,
+    "torch-cuda-version": "12.1",
+    "torch-version": "2.5.1+cu121",
+    "zipvoice-git-branch": "master",
+    "zipvoice-git-date": "Wed Sep 17 03:58:11 2025",
+    "zipvoice-git-sha1": "5140290-dirty",
+    "zipvoice-path": "/info/raid-etu/m2/s2405959/VO2/ZipVoice/zipvoice"
+  },
+  "error_dump_count": 0,
+  "exp_dir": "exp/zipvoice_finetune_blizzard",
+  "feat_dim": 100,
+  "feat_scale": 0.1,
+  "finetune": true,
+  "fm_decoder_cnn_module_kernel": [
+    31,
+    15,
+    7,
+    15,
+    31
+  ],
+  "fm_decoder_dim": 512,
+  "fm_decoder_downsampling_factor": [
+    1,
+    2,
+    4,
+    2,
+    1
+  ],
+  "fm_decoder_feedforward_dim": 1536,
+  "fm_decoder_num_heads": 4,
+  "fm_decoder_num_layers": [
+    2,
+    2,
+    4,
+    4,
+    4
+  ],
+  "inf_check": false,
+  "input_strategy": "PrecomputedFeatures",
+  "keep_last_k": 30,
+  "lang": "fr",
+  "log_grad_norm": true,
+  "log_interval": 50,
+  "lr_batches": 7500,
+  "lr_epochs": 10,
+  "lr_hours": 0,
+  "manifest_dir": "data/fbank",
+  "master_port": 12356,
+  "max_duration": 50,
+  "max_error_dumps": 10,
+  "max_len": 20.0,
+  "min_len": 1.0,
+  "model_config": "/info/raid-etu/m2/s2405959/VO2/ZipVoice/egs/zipvoice/download/zipvoice/model.json",
+  "num_buckets": 12,
+  "num_epochs": 1000000,
+  "num_iters": 50000,
+  "num_workers": 8,
+  "on_the_fly_feats": false,
+  "pad_id": 0,
+  "pos_dim": 48,
+  "pos_head_dim": 4,
+  "print_diagnostics": false,
+  "query_head_dim": 32,
+  "ref_duration": 50,
+  "reset_interval": 200,
+  "return_cuts": false,
+  "sampling_rate": 24000,
+  "save_every_n": 10000,
+  "scan_oom": false,
+  "seed": 42,
+  "shuffle": true,
+  "start_epoch": 1,
+  "tensorboard": true,
+  "text_embed_dim": 192,
+  "text_encoder_cnn_module_kernel": 9,
+  "text_encoder_dim": 192,
+  "text_encoder_feedforward_dim": 512,
+  "text_encoder_num_heads": 4,
+  "text_encoder_num_layers": 4,
+  "time_embed_dim": 192,
+  "token_file": "download//zipvoice/tokens.txt",
+  "tokenizer": "espeak",
+  "train_manifest": "data/fbank/blizzard-finetune_cuts_train.jsonl.gz",
+  "type": "vocos",
+  "use_fp16": true,
+  "valid_by_epoch": false,
+  "valid_interval": 10000,
+  "value_head_dim": 12,
+  "vocab_size": 360,
+  "world_size": 2
+}
+2025-12-03 12:32:36,928 INFO [train_zipvoice.py:1033] (1/2) About to create model
+2025-12-03 12:32:41,614 INFO [train_zipvoice.py:1041] (0/2) Loading pre-trained model from /info/raid-etu/m2/s2405959/VO2/ZipVoice/egs/zipvoice/download/zipvoice/model.pt
+2025-12-03 12:32:41,617 INFO [checkpoint.py:114] (0/2) Loading checkpoint from /info/raid-etu/m2/s2405959/VO2/ZipVoice/egs/zipvoice/download/zipvoice/model.pt
+2025-12-03 12:32:41,941 INFO [train_zipvoice.py:1041] (1/2) Loading pre-trained model from /info/raid-etu/m2/s2405959/VO2/ZipVoice/egs/zipvoice/download/zipvoice/model.pt
+2025-12-03 12:32:41,941 INFO [checkpoint.py:114] (1/2) Loading checkpoint from /info/raid-etu/m2/s2405959/VO2/ZipVoice/egs/zipvoice/download/zipvoice/model.pt
+2025-12-03 12:32:52,712 INFO [train_zipvoice.py:1044] (1/2) Number of parameters : 122664804
+2025-12-03 12:32:52,739 INFO [train_zipvoice.py:1044] (0/2) Number of parameters : 122664804
+2025-12-03 12:32:52,978 INFO [train_zipvoice.py:1057] (1/2) Using DDP
+2025-12-03 12:32:54,614 INFO [train_zipvoice.py:1057] (0/2) Using DDP
+2025-12-03 12:32:59,841 INFO [datamodule.py:272] (1/2) About to get the custom training cuts data/fbank/blizzard-finetune_cuts_train.jsonl.gz
+2025-12-03 12:32:59,841 INFO [datamodule.py:272] (0/2) About to get the custom training cuts data/fbank/blizzard-finetune_cuts_train.jsonl.gz
+2025-12-03 12:32:59,911 INFO [datamodule.py:277] (0/2) About to get the custom validation cuts data/fbank/blizzard-finetune_cuts_dev.jsonl.gz
+2025-12-03 12:32:59,919 INFO [datamodule.py:277] (1/2) About to get the custom validation cuts data/fbank/blizzard-finetune_cuts_dev.jsonl.gz
+2025-12-03 12:32:59,947 INFO [datamodule.py:165] (0/2) About to create train dataset
+2025-12-03 12:32:59,947 INFO [datamodule.py:178] (0/2) Using DynamicBucketingSampler.
+2025-12-03 12:32:59,947 INFO [datamodule.py:165] (1/2) About to create train dataset
+2025-12-03 12:32:59,947 INFO [datamodule.py:178] (1/2) Using DynamicBucketingSampler.
+2025-12-03 12:33:01,611 INFO [datamodule.py:195] (0/2) About to create train dataloader
+2025-12-03 12:33:01,612 INFO [datamodule.py:195] (1/2) About to create train dataloader
+2025-12-03 12:33:01,613 INFO [datamodule.py:218] (0/2) About to create dev dataset
+2025-12-03 12:33:01,613 INFO [datamodule.py:218] (1/2) About to create dev dataset
+2025-12-03 12:33:02,626 INFO [datamodule.py:233] (0/2) About to create valid dataloader
+2025-12-03 12:33:02,627 INFO [train_zipvoice.py:1176] (0/2) Training started
+2025-12-03 12:33:02,627 INFO [train_zipvoice.py:1179] (0/2) Start epoch 1
+2025-12-03 12:33:02,643 INFO [datamodule.py:233] (1/2) About to create valid dataloader
+2025-12-03 12:33:02,643 INFO [train_zipvoice.py:1176] (1/2) Training started
+2025-12-03 12:33:02,643 INFO [train_zipvoice.py:1179] (1/2) Start epoch 1
+2025-12-03 12:33:25,778 INFO [train_zipvoice.py:597] (0/2) Computing validation loss
+2025-12-03 12:33:26,403 INFO [train_zipvoice.py:597] (1/2) Computing validation loss
+2025-12-03 12:34:49,013 INFO [train_zipvoice.py:605] (1/2) Epoch 1, global_batch_idx: 0, validation: loss=0.04541, over 1764927.00 frames. 
+2025-12-03 12:34:49,013 INFO [train_zipvoice.py:605] (0/2) Epoch 1, global_batch_idx: 0, validation: loss=0.04541, over 1764927.00 frames. 
+2025-12-03 12:34:49,014 INFO [train_zipvoice.py:609] (1/2) Maximum memory allocated so far is 1371MB
+2025-12-03 12:34:49,014 INFO [train_zipvoice.py:609] (0/2) Maximum memory allocated so far is 1431MB
+[rank0]:[W1203 12:34:49.095055074 reducer.cpp:1400] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank1]:[W1203 12:34:49.105797734 reducer.cpp:1400] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+2025-12-03 12:35:06,990 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 5.029e-03 6.946e-03 9.330e-03 1.299e-02 1.508e-02, threshold=3.732e-02, percent-clipped=0.0
+2025-12-03 12:35:06,993 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 5.029e-03 6.946e-03 9.330e-03 1.299e-02 1.508e-02, threshold=3.732e-02, percent-clipped=0.0
+2025-12-03 12:35:23,908 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 4.331e-03 6.946e-03 9.330e-03 1.494e-02 3.038e-02, threshold=3.732e-02, percent-clipped=0.0
+2025-12-03 12:35:23,908 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 4.331e-03 6.946e-03 9.330e-03 1.494e-02 3.038e-02, threshold=3.732e-02, percent-clipped=0.0
+2025-12-03 12:35:55,413 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 4.331e-03 6.810e-03 9.330e-03 1.299e-02 3.038e-02, threshold=3.732e-02, percent-clipped=0.0
+2025-12-03 12:35:55,413 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 4.331e-03 6.810e-03 9.330e-03 1.299e-02 3.038e-02, threshold=3.732e-02, percent-clipped=0.0
+2025-12-03 12:36:09,502 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 49, global_batch_idx: 50, batch size: 18, loss[loss=0.05109, over 4391.00 frames. ], tot_loss[loss=0.0777, over 184580.90 frames. ], cur_lr: 1.00e-05, grad_norm: 2.94e-01, grad_scale: 1024.0
+2025-12-03 12:36:09,502 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 49, global_batch_idx: 50, batch size: 18, loss[loss=0.05389, over 4362.00 frames. ], tot_loss[loss=0.06701, over 185536.94 frames. ], cur_lr: 1.00e-05, grad_norm: 2.94e-01, grad_scale: 1024.0
+2025-12-03 12:37:29,148 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 99, global_batch_idx: 100, batch size: 14, loss[loss=0.04578, over 4298.00 frames. ], tot_loss[loss=0.06704, over 330906.30 frames. ], cur_lr: 1.00e-05, grad_norm: 2.10e-01, grad_scale: 1024.0
+2025-12-03 12:37:29,150 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 99, global_batch_idx: 100, batch size: 14, loss[loss=0.05086, over 4307.00 frames. ], tot_loss[loss=0.07242, over 330756.84 frames. ], cur_lr: 1.00e-05, grad_norm: 2.10e-01, grad_scale: 1024.0
+2025-12-03 12:37:30,668 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 3.934e-03 5.560e-03 7.724e-03 1.223e-02 5.308e-02, threshold=1.545e-02, percent-clipped=1.0
+2025-12-03 12:37:30,668 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 3.934e-03 5.560e-03 7.724e-03 1.223e-02 5.308e-02, threshold=1.545e-02, percent-clipped=1.0
+2025-12-03 12:38:48,534 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 149, global_batch_idx: 150, batch size: 14, loss[loss=0.04846, over 4261.00 frames. ], tot_loss[loss=0.06797, over 443639.07 frames. ], cur_lr: 1.00e-05, grad_norm: 2.66e-01, grad_scale: 1024.0
+2025-12-03 12:38:48,534 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 149, global_batch_idx: 150, batch size: 14, loss[loss=0.03879, over 4269.00 frames. ], tot_loss[loss=0.07164, over 441813.94 frames. ], cur_lr: 1.00e-05, grad_norm: 2.66e-01, grad_scale: 1024.0
+2025-12-03 12:40:08,550 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 199, global_batch_idx: 200, batch size: 23, loss[loss=0.09767, over 4219.00 frames. ], tot_loss[loss=0.06986, over 529449.51 frames. ], cur_lr: 1.00e-05, grad_norm: 2.39e-01, grad_scale: 1024.0
+2025-12-03 12:40:09,200 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 199, global_batch_idx: 200, batch size: 24, loss[loss=0.05682, over 4270.00 frames. ], tot_loss[loss=0.07071, over 529962.91 frames. ], cur_lr: 1.00e-05, grad_norm: 2.39e-01, grad_scale: 1024.0
+2025-12-03 12:40:10,769 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 3.101e-03 4.751e-03 6.361e-03 9.632e-03 5.740e-02, threshold=1.272e-02, percent-clipped=9.0
+2025-12-03 12:40:10,769 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 3.101e-03 4.751e-03 6.361e-03 9.632e-03 5.740e-02, threshold=1.272e-02, percent-clipped=9.0
+2025-12-03 12:41:30,153 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 249, global_batch_idx: 250, batch size: 16, loss[loss=0.05615, over 4408.00 frames. ], tot_loss[loss=0.06871, over 600296.82 frames. ], cur_lr: 1.00e-05, grad_norm: 2.18e-01, grad_scale: 1024.0
+2025-12-03 12:41:30,153 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 249, global_batch_idx: 250, batch size: 16, loss[loss=0.05547, over 4434.00 frames. ], tot_loss[loss=0.06801, over 601452.81 frames. ], cur_lr: 1.00e-05, grad_norm: 2.18e-01, grad_scale: 1024.0
+2025-12-03 12:42:50,226 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 299, global_batch_idx: 300, batch size: 10, loss[loss=0.09608, over 4118.00 frames. ], tot_loss[loss=0.06999, over 655064.52 frames. ], cur_lr: 1.00e-05, grad_norm: 5.45e-01, grad_scale: 1024.0
+2025-12-03 12:42:50,231 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 299, global_batch_idx: 300, batch size: 10, loss[loss=0.0427, over 4117.00 frames. ], tot_loss[loss=0.0681, over 656184.66 frames. ], cur_lr: 1.00e-05, grad_norm: 5.45e-01, grad_scale: 1024.0
+2025-12-03 12:42:51,806 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 2.585e-03 3.719e-03 4.828e-03 6.749e-03 2.639e-02, threshold=9.655e-03, percent-clipped=8.0
+2025-12-03 12:42:51,807 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 2.585e-03 3.719e-03 4.828e-03 6.749e-03 2.639e-02, threshold=9.655e-03, percent-clipped=8.0
+2025-12-03 12:44:11,424 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 349, global_batch_idx: 350, batch size: 20, loss[loss=0.07336, over 4209.00 frames. ], tot_loss[loss=0.07006, over 694110.65 frames. ], cur_lr: 1.00e-05, grad_norm: 2.21e-01, grad_scale: 1024.0
+2025-12-03 12:44:11,428 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 349, global_batch_idx: 350, batch size: 20, loss[loss=0.04399, over 4310.00 frames. ], tot_loss[loss=0.06716, over 696896.45 frames. ], cur_lr: 1.00e-05, grad_norm: 2.21e-01, grad_scale: 1024.0
+2025-12-03 12:45:32,844 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 399, global_batch_idx: 400, batch size: 11, loss[loss=0.06007, over 4152.00 frames. ], tot_loss[loss=0.06921, over 725297.69 frames. ], cur_lr: 1.00e-05, grad_norm: 2.54e-01, grad_scale: 2048.0
+2025-12-03 12:45:33,507 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 399, global_batch_idx: 400, batch size: 11, loss[loss=0.03786, over 4156.00 frames. ], tot_loss[loss=0.0689, over 726074.64 frames. ], cur_lr: 1.00e-05, grad_norm: 2.54e-01, grad_scale: 2048.0
+2025-12-03 12:45:35,114 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 2.809e-03 3.730e-03 4.791e-03 6.994e-03 3.065e-02, threshold=9.581e-03, percent-clipped=14.0
+2025-12-03 12:45:35,116 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 2.809e-03 3.730e-03 4.791e-03 6.994e-03 3.065e-02, threshold=9.581e-03, percent-clipped=14.0
+2025-12-03 12:46:53,804 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 449, global_batch_idx: 450, batch size: 16, loss[loss=0.04057, over 4404.00 frames. ], tot_loss[loss=0.06765, over 748715.40 frames. ], cur_lr: 1.00e-05, grad_norm: 2.74e-01, grad_scale: 2048.0
+2025-12-03 12:46:53,808 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 449, global_batch_idx: 450, batch size: 16, loss[loss=0.08608, over 4403.00 frames. ], tot_loss[loss=0.07059, over 750380.19 frames. ], cur_lr: 1.00e-05, grad_norm: 2.74e-01, grad_scale: 2048.0
+2025-12-03 12:48:14,324 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 499, global_batch_idx: 500, batch size: 5, loss[loss=0.03214, over 3947.00 frames. ], tot_loss[loss=0.06719, over 766263.70 frames. ], cur_lr: 1.00e-05, grad_norm: 2.83e-01, grad_scale: 2048.0
+2025-12-03 12:48:14,328 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 499, global_batch_idx: 500, batch size: 5, loss[loss=0.02732, over 3702.00 frames. ], tot_loss[loss=0.06806, over 768634.47 frames. ], cur_lr: 1.00e-05, grad_norm: 2.83e-01, grad_scale: 2048.0
+2025-12-03 12:48:15,856 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 2.304e-03 3.655e-03 4.899e-03 7.506e-03 4.491e-02, threshold=9.798e-03, percent-clipped=16.0
+2025-12-03 12:48:15,857 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 2.304e-03 3.655e-03 4.899e-03 7.506e-03 4.491e-02, threshold=9.798e-03, percent-clipped=16.0
+2025-12-03 12:49:34,097 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 549, global_batch_idx: 550, batch size: 20, loss[loss=0.07653, over 4332.00 frames. ], tot_loss[loss=0.06735, over 783844.95 frames. ], cur_lr: 1.00e-05, grad_norm: 2.28e-01, grad_scale: 2048.0
+2025-12-03 12:49:34,099 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 549, global_batch_idx: 550, batch size: 20, loss[loss=0.08057, over 4291.00 frames. ], tot_loss[loss=0.06667, over 784130.78 frames. ], cur_lr: 1.00e-05, grad_norm: 2.28e-01, grad_scale: 2048.0
+2025-12-03 12:50:56,056 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 599, global_batch_idx: 600, batch size: 20, loss[loss=0.04341, over 4235.00 frames. ], tot_loss[loss=0.06513, over 797834.88 frames. ], cur_lr: 1.00e-05, grad_norm: 1.74e-01, grad_scale: 2048.0
+2025-12-03 12:50:56,713 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 599, global_batch_idx: 600, batch size: 20, loss[loss=0.04322, over 4292.00 frames. ], tot_loss[loss=0.0655, over 798279.88 frames. ], cur_lr: 1.00e-05, grad_norm: 1.74e-01, grad_scale: 2048.0
+2025-12-03 12:50:58,294 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 2.489e-03 3.621e-03 4.981e-03 6.947e-03 1.797e-02, threshold=9.961e-03, percent-clipped=9.0
+2025-12-03 12:50:58,296 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 2.489e-03 3.621e-03 4.981e-03 6.947e-03 1.797e-02, threshold=9.961e-03, percent-clipped=9.0
+2025-12-03 12:52:17,079 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 649, global_batch_idx: 650, batch size: 16, loss[loss=0.08585, over 4420.00 frames. ], tot_loss[loss=0.06825, over 806436.59 frames. ], cur_lr: 1.00e-05, grad_norm: 3.18e-01, grad_scale: 2048.0
+2025-12-03 12:52:17,079 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 649, global_batch_idx: 650, batch size: 16, loss[loss=0.09937, over 4375.00 frames. ], tot_loss[loss=0.0665, over 806664.29 frames. ], cur_lr: 1.00e-05, grad_norm: 3.18e-01, grad_scale: 2048.0
+2025-12-03 12:53:37,548 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 699, global_batch_idx: 700, batch size: 17, loss[loss=0.04077, over 4099.00 frames. ], tot_loss[loss=0.06587, over 814262.10 frames. ], cur_lr: 1.00e-05, grad_norm: 2.35e-01, grad_scale: 2048.0
+2025-12-03 12:53:37,553 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 699, global_batch_idx: 700, batch size: 17, loss[loss=0.05949, over 4156.00 frames. ], tot_loss[loss=0.0669, over 814596.99 frames. ], cur_lr: 1.00e-05, grad_norm: 2.35e-01, grad_scale: 2048.0
+2025-12-03 12:53:39,130 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 2.181e-03 3.089e-03 3.845e-03 6.730e-03 4.447e-02, threshold=7.689e-03, percent-clipped=12.0
+2025-12-03 12:53:39,133 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 2.181e-03 3.089e-03 3.845e-03 6.730e-03 4.447e-02, threshold=7.689e-03, percent-clipped=12.0
+2025-12-03 12:54:58,331 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 749, global_batch_idx: 750, batch size: 20, loss[loss=0.07095, over 4284.00 frames. ], tot_loss[loss=0.06766, over 819487.73 frames. ], cur_lr: 1.00e-05, grad_norm: 1.73e-01, grad_scale: 2048.0
+2025-12-03 12:54:58,333 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 749, global_batch_idx: 750, batch size: 20, loss[loss=0.05154, over 4230.00 frames. ], tot_loss[loss=0.06569, over 820794.31 frames. ], cur_lr: 1.00e-05, grad_norm: 1.73e-01, grad_scale: 2048.0
+2025-12-03 12:56:20,075 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 799, global_batch_idx: 800, batch size: 9, loss[loss=0.1415, over 4197.00 frames. ], tot_loss[loss=0.06719, over 821483.48 frames. ], cur_lr: 1.00e-05, grad_norm: 3.52e-01, grad_scale: 4096.0
+2025-12-03 12:56:20,737 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 799, global_batch_idx: 800, batch size: 9, loss[loss=0.03679, over 4226.00 frames. ], tot_loss[loss=0.06511, over 821694.53 frames. ], cur_lr: 1.00e-05, grad_norm: 3.52e-01, grad_scale: 4096.0
+2025-12-03 12:56:22,230 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 2.257e-03 3.093e-03 4.049e-03 5.230e-03 3.862e-02, threshold=8.099e-03, percent-clipped=17.0
+2025-12-03 12:56:22,231 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 2.257e-03 3.093e-03 4.049e-03 5.230e-03 3.862e-02, threshold=8.099e-03, percent-clipped=17.0
+2025-12-03 12:57:41,223 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 849, global_batch_idx: 850, batch size: 5, loss[loss=0.05743, over 3784.00 frames. ], tot_loss[loss=0.06636, over 823802.49 frames. ], cur_lr: 1.00e-05, grad_norm: 2.58e-01, grad_scale: 4096.0
+2025-12-03 12:57:41,227 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 849, global_batch_idx: 850, batch size: 5, loss[loss=0.07211, over 3441.00 frames. ], tot_loss[loss=0.06477, over 823658.55 frames. ], cur_lr: 1.00e-05, grad_norm: 2.58e-01, grad_scale: 4096.0
+2025-12-03 12:59:01,643 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 899, global_batch_idx: 900, batch size: 10, loss[loss=0.02507, over 4129.00 frames. ], tot_loss[loss=0.0658, over 825253.38 frames. ], cur_lr: 1.00e-05, grad_norm: 2.41e-01, grad_scale: 4096.0
+2025-12-03 12:59:01,645 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 899, global_batch_idx: 900, batch size: 10, loss[loss=0.07685, over 4221.00 frames. ], tot_loss[loss=0.06386, over 825924.57 frames. ], cur_lr: 1.00e-05, grad_norm: 2.41e-01, grad_scale: 4096.0
+2025-12-03 12:59:03,256 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 2.430e-03 3.057e-03 3.712e-03 5.948e-03 2.246e-02, threshold=7.424e-03, percent-clipped=17.0
+2025-12-03 12:59:03,258 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 2.430e-03 3.057e-03 3.712e-03 5.948e-03 2.246e-02, threshold=7.424e-03, percent-clipped=17.0
+2025-12-03 13:00:21,169 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 949, global_batch_idx: 950, batch size: 18, loss[loss=0.07336, over 4332.00 frames. ], tot_loss[loss=0.06408, over 828243.17 frames. ], cur_lr: 1.00e-05, grad_norm: 2.24e-01, grad_scale: 4096.0
+2025-12-03 13:00:21,170 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 949, global_batch_idx: 950, batch size: 18, loss[loss=0.09095, over 4435.00 frames. ], tot_loss[loss=0.06548, over 827868.44 frames. ], cur_lr: 1.00e-05, grad_norm: 2.24e-01, grad_scale: 4096.0
+2025-12-03 13:01:40,811 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 999, global_batch_idx: 1000, batch size: 5, loss[loss=0.03335, over 3979.00 frames. ], tot_loss[loss=0.06423, over 830922.99 frames. ], cur_lr: 1.00e-05, grad_norm: 2.03e-01, grad_scale: 4096.0
+2025-12-03 13:01:41,457 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 999, global_batch_idx: 1000, batch size: 5, loss[loss=0.04158, over 3799.00 frames. ], tot_loss[loss=0.06778, over 832705.85 frames. ], cur_lr: 1.00e-05, grad_norm: 2.03e-01, grad_scale: 4096.0
+2025-12-03 13:01:42,971 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 2.023e-03 3.064e-03 3.708e-03 4.942e-03 1.732e-02, threshold=7.417e-03, percent-clipped=11.0
+2025-12-03 13:01:42,971 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 2.023e-03 3.064e-03 3.708e-03 4.942e-03 1.732e-02, threshold=7.417e-03, percent-clipped=11.0
+2025-12-03 13:03:01,756 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 1049, global_batch_idx: 1050, batch size: 10, loss[loss=0.08266, over 4090.00 frames. ], tot_loss[loss=0.06425, over 833962.67 frames. ], cur_lr: 1.00e-05, grad_norm: 2.74e-01, grad_scale: 4096.0
+2025-12-03 13:03:01,756 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 1049, global_batch_idx: 1050, batch size: 10, loss[loss=0.03392, over 4126.00 frames. ], tot_loss[loss=0.0669, over 836377.99 frames. ], cur_lr: 1.00e-05, grad_norm: 2.74e-01, grad_scale: 4096.0
+2025-12-03 13:04:21,527 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 1099, global_batch_idx: 1100, batch size: 13, loss[loss=0.06521, over 4314.00 frames. ], tot_loss[loss=0.06663, over 835778.62 frames. ], cur_lr: 1.00e-05, grad_norm: 1.52e-01, grad_scale: 4096.0
+2025-12-03 13:04:21,529 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 1099, global_batch_idx: 1100, batch size: 13, loss[loss=0.04064, over 4373.00 frames. ], tot_loss[loss=0.06566, over 838344.69 frames. ], cur_lr: 1.00e-05, grad_norm: 1.52e-01, grad_scale: 4096.0
+2025-12-03 13:04:23,056 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 2.123e-03 3.067e-03 3.727e-03 4.949e-03 1.948e-02, threshold=7.454e-03, percent-clipped=10.0
+2025-12-03 13:04:23,056 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 2.123e-03 3.067e-03 3.727e-03 4.949e-03 1.948e-02, threshold=7.454e-03, percent-clipped=10.0
+2025-12-03 13:05:41,096 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 1149, global_batch_idx: 1150, batch size: 14, loss[loss=0.03802, over 4311.00 frames. ], tot_loss[loss=0.06607, over 837486.89 frames. ], cur_lr: 1.00e-05, grad_norm: 1.79e-01, grad_scale: 4096.0
+2025-12-03 13:05:41,097 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 1149, global_batch_idx: 1150, batch size: 14, loss[loss=0.04574, over 4282.00 frames. ], tot_loss[loss=0.06703, over 840325.78 frames. ], cur_lr: 1.00e-05, grad_norm: 1.79e-01, grad_scale: 4096.0
+2025-12-03 13:07:00,447 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 1199, global_batch_idx: 1200, batch size: 18, loss[loss=0.04654, over 4360.00 frames. ], tot_loss[loss=0.06722, over 837057.09 frames. ], cur_lr: 1.00e-05, grad_norm: 3.32e-01, grad_scale: 4096.0
+2025-12-03 13:07:01,093 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 1199, global_batch_idx: 1200, batch size: 18, loss[loss=0.04434, over 4472.00 frames. ], tot_loss[loss=0.06646, over 839731.93 frames. ], cur_lr: 1.00e-05, grad_norm: 3.32e-01, grad_scale: 4096.0
+2025-12-03 13:07:02,622 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 1.983e-03 2.966e-03 3.704e-03 6.089e-03 2.522e-02, threshold=7.409e-03, percent-clipped=18.0
+2025-12-03 13:07:02,623 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 1.983e-03 2.966e-03 3.704e-03 6.089e-03 2.522e-02, threshold=7.409e-03, percent-clipped=18.0
+2025-12-03 13:08:19,776 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 1249, global_batch_idx: 1250, batch size: 14, loss[loss=0.03916, over 4248.00 frames. ], tot_loss[loss=0.06784, over 837397.37 frames. ], cur_lr: 1.00e-05, grad_norm: 2.27e-01, grad_scale: 4096.0
+2025-12-03 13:08:19,778 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 1249, global_batch_idx: 1250, batch size: 14, loss[loss=0.138, over 4326.00 frames. ], tot_loss[loss=0.06764, over 839309.32 frames. ], cur_lr: 1.00e-05, grad_norm: 2.27e-01, grad_scale: 4096.0
+2025-12-03 13:09:40,167 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 1299, global_batch_idx: 1300, batch size: 10, loss[loss=0.05292, over 4134.00 frames. ], tot_loss[loss=0.06755, over 835136.39 frames. ], cur_lr: 1.00e-05, grad_norm: 1.92e-01, grad_scale: 4096.0
+2025-12-03 13:09:40,170 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 1299, global_batch_idx: 1300, batch size: 10, loss[loss=0.03308, over 4197.00 frames. ], tot_loss[loss=0.06751, over 838052.82 frames. ], cur_lr: 1.00e-05, grad_norm: 1.92e-01, grad_scale: 4096.0
+2025-12-03 13:09:41,677 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 1.748e-03 3.038e-03 4.345e-03 6.486e-03 8.467e-02, threshold=8.691e-03, percent-clipped=22.0
+2025-12-03 13:09:41,679 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 1.748e-03 3.038e-03 4.345e-03 6.486e-03 8.467e-02, threshold=8.691e-03, percent-clipped=22.0
+2025-12-03 13:10:58,274 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 1349, global_batch_idx: 1350, batch size: 23, loss[loss=0.05047, over 4260.00 frames. ], tot_loss[loss=0.06808, over 835491.01 frames. ], cur_lr: 1.00e-05, grad_norm: 2.14e-01, grad_scale: 4096.0
+2025-12-03 13:10:58,275 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 1349, global_batch_idx: 1350, batch size: 23, loss[loss=0.09393, over 4106.00 frames. ], tot_loss[loss=0.06562, over 836700.26 frames. ], cur_lr: 1.00e-05, grad_norm: 2.14e-01, grad_scale: 4096.0
+2025-12-03 13:12:16,646 INFO [train_zipvoice.py:801] (1/2) Epoch 1, batch 1399, global_batch_idx: 1400, batch size: 11, loss[loss=0.109, over 4101.00 frames. ], tot_loss[loss=0.06791, over 834183.30 frames. ], cur_lr: 1.00e-05, grad_norm: 4.64e-01, grad_scale: 4096.0
+2025-12-03 13:12:17,254 INFO [train_zipvoice.py:801] (0/2) Epoch 1, batch 1399, global_batch_idx: 1400, batch size: 11, loss[loss=0.08918, over 4171.00 frames. ], tot_loss[loss=0.06512, over 837253.94 frames. ], cur_lr: 1.00e-05, grad_norm: 4.64e-01, grad_scale: 4096.0
+2025-12-03 13:12:18,723 WARNING [optim.py:600] (1/2) Clipping_scale=2.0, grad-norm quartiles 2.188e-03 2.973e-03 3.507e-03 4.699e-03 2.913e-02, threshold=7.013e-03, percent-clipped=12.0
+2025-12-03 13:12:18,724 WARNING [optim.py:600] (0/2) Clipping_scale=2.0, grad-norm quartiles 2.188e-03 2.973e-03 3.507e-03 4.699e-03 2.913e-02, threshold=7.013e-03, percent-clipped=12.0
