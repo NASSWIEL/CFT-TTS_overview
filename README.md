@@ -42,7 +42,11 @@ collected_samples/
 | **ZipVoice_24khz** | **AD** : 0.2177 / 0.4445 <br> **NEB** : 0.1964 / 0.3576 |
 
 **reference_24khz**: Reference dataset sampled at 24 kHz.
+
 **reference**: Original reference audio sampled at 22,050 Hz.
+
 **ZipVoice_fixed_params**: Inference using the eSpeak tokenizer with the language set to 'fr'.
+
 **ZipVoice**: Inference using the Emilia (English) tokenizer.
+
 **ZipVoice_24khz**: Inference generated using the 24 kHz reference audio, as ZipVoice is configured for 24 kHz.
