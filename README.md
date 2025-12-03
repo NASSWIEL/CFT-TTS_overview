@@ -30,7 +30,7 @@ collected_samples/
     └── zipVoic_fintuned/
 ```
 
-## Results
+## Results over 500 samples
 
 | Configuration | Whisper V3 Large (Base) |
 | :--- | :--- |
